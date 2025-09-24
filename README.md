@@ -15,6 +15,6 @@ bun dev
 ## Packages:-
 
 - bunx create-next-app@14.2.15 .
-- bunx --bun shadcn@latest init
+- bunx --bun shadcn@latest init- bun add convex
 
 [`Link`](https://nextjs.org)

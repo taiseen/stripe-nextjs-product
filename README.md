@@ -2,19 +2,28 @@
 
 # Stripe Product
 
-This project was created by `bun`
+Build a stripe payment system for product
 
-```bash
+⚙️ This project was created by `bun`
+
+```sh
 bun install
 ```
 
-```bash
+```sh
 bun dev
 ```
 
-## Packages:-
+For run db locally
+
+```sh
+bunx convex dev
+```
+
+## 📦 Packages:-
 
 - bunx create-next-app@14.2.15 .
 - bunx --bun shadcn@latest init- bun add convex
+- bun add convex
 
 [`Link`](https://nextjs.org)

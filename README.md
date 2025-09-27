@@ -23,7 +23,11 @@ bunx convex dev
 ## 📦 Packages:-
 
 - bunx create-next-app@14.2.15 .
-- bunx --bun shadcn@latest init- bun add convex
+- bunx --bun shadcn@latest init
 - bun add convex
+- bunx --bun shadcn@latest add button
 
-[`Link`](https://nextjs.org)
+### 📎 Reference
+
+- [`Shadcn Components`](https://ui.shadcn.com/docs/components)
+- [`Convex Documentation`](https://docs.convex.dev)

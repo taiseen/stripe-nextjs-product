@@ -26,8 +26,19 @@ bunx convex dev
 - bunx --bun shadcn@latest init
 - bun add convex
 - bunx --bun shadcn@latest add button
+- bunx --bun shadcn@latest add card
+- bunx --bun shadcn@latest add badge
+- bunx --bun shadcn@latest add skeleton
 
 ### 📎 Reference
 
 - [`Shadcn Components`](https://ui.shadcn.com/docs/components)
 - [`Convex Documentation`](https://docs.convex.dev)
+- [`Convex Dashboard`](https://dashboard.convex.dev)
+- [`Clerk Documentation`](https://clerk.com/docs)
+- [`Clerk Dashboard`](https://dashboard.clerk.com)
+
+### Learning Context:-
+
+- manually data input at convex db
+  - bunx convex import --table <TABLE_NAME> <FILE_NAME.json>

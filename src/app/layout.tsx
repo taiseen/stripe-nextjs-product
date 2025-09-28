@@ -13,7 +13,9 @@ export default function RootLayout({ children }: Readonly<LayoutType>) {
       <body>
         <ConvexClientProvider>
           <Bg />
+
           <Navbar />
+
           {children}
         </ConvexClientProvider>
       </body>

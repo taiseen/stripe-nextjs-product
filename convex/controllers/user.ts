@@ -7,7 +7,7 @@ export const createUser = mutation({
         email: v.string(),
         name: v.string(),
         clerkId: v.string(),
-        // stripeCustomerId: v.string(),
+        stripeCustomerId: v.string(),
     },
 
     handler: async (ctx, args) => {
@@ -25,7 +25,7 @@ export const createUser = mutation({
             email: args.email,
             name: args.name,
             clerkId: args.clerkId,
-            // stripeCustomerId: args.stripeCustomerId,
+            stripeCustomerId: args.stripeCustomerId,
         });
 
         return userId;

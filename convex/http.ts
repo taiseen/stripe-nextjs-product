@@ -3,7 +3,7 @@ import { httpAction } from "./_generated/server";
 import { httpRouter } from "convex/server";
 import { api } from "./_generated/api";
 import { Webhook } from "svix";
-
+import stripe from "../src/lib/stripe";
 
 const http = httpRouter();
 
@@ -51,10 +51,16 @@ const clerkWebhook = httpAction(async (ctx, request) => {
 
         try {
 
+            const customer = await stripe.customers.create({
+                email, name, metadata: { clerkId: id },
+            });
+
+
             await ctx.runMutation(api.controllers.user.createUser, {
                 email,
                 name,
-                clerkId: id
+                clerkId: id,
+                stripeCustomerId: customer.id,
             });
 
         } catch (error) {

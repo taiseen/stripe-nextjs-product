@@ -31,3 +31,35 @@ export const createUser = mutation({
         return userId;
     },
 });
+
+export const getUserByClerkId = mutation({
+    args: {
+        clerkId: v.string(),
+    },
+
+    handler: async (ctx, args) => {
+        const clerkUser = await ctx.db
+            .query("users")
+            .withIndex("by_clerkId", (q) => q.eq("clerkId", args.clerkId))
+            .unique();
+
+        return clerkUser;
+    },
+});
+
+export const getUserByStripeCustomerId = mutation({
+    args: {
+        stripeCustomerId: v.string(),
+    },
+
+    handler: async (ctx, args) => {
+        const stripeUser = await ctx.db
+            .query("users")
+            .withIndex("by_stripeCustomerId", (q) =>
+                q.eq("stripeCustomerId", args.stripeCustomerId)
+            )
+            .unique();
+
+        return stripeUser;
+    },
+});

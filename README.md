@@ -33,11 +33,11 @@ bunx convex dev
 
 ### 📎 Reference
 
-- [`Shadcn Components`](https://ui.shadcn.com/docs/components)
-- [`Convex Documentation`](https://docs.convex.dev)
-- [`Convex Dashboard`](https://dashboard.convex.dev)
-- [`Clerk Documentation`](https://clerk.com/docs)
-- [`Clerk Dashboard`](https://dashboard.clerk.com)
+- [`Shadcn Components`](https://ui.shadcn.com/docs/components) 🎨
+- [`Convex Dashboard`](https://dashboard.convex.dev) 🛢️
+- [`Convex Doc`](https://docs.convex.dev)
+- [`Clerk Dashboard`](https://dashboard.clerk.com) 🛡️
+- [`Clerk Doc`](https://clerk.com/docs)
 - [`Upstash Dashboard`](https://console.upstash.com)
 
 ### Learning Context:-

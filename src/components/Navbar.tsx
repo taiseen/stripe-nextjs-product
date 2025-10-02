@@ -1,20 +1,6 @@
+import { GraduationCap, BookOpenIcon, ZapIcon } from "lucide-react";
+import AuthBtn from "./AuthBtn";
 import Link from "next/link";
-import { Button } from "./ui/button";
-import {
-  SignOutButton,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-  SignedOut,
-  SignedIn,
-} from "@clerk/nextjs";
-import {
-  CreditCardIcon,
-  GraduationCap,
-  BookOpenIcon,
-  LogOutIcon,
-  ZapIcon,
-} from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -43,48 +29,7 @@ const Navbar = () => {
           <span className="hidden sm:inline">Pro</span>
         </Link>
 
-        <SignedIn>
-          <Link href={"/billing"}>
-            <Button
-              variant={"outline"}
-              size={"sm"}
-              className="flex items-center gap-2 text-black"
-            >
-              <CreditCardIcon className="size-4" />
-              <span className="hidden sm:inline">Billing</span>
-            </Button>
-          </Link>
-        </SignedIn>
-
-        {/* this will only be shown if user is signed in */}
-        <UserButton />
-
-        <SignedIn>
-          <SignOutButton>
-            <Button
-              variant="outline"
-              size="sm"
-              className="hidden sm:flex items-center gap-2 text-black"
-            >
-              <LogOutIcon className="h-4 w-4" />
-              <span className="hidden sm:inline">Log out</span>
-            </Button>
-          </SignOutButton>
-        </SignedIn>
-
-        <SignedOut>
-          <SignInButton mode="modal">
-            <Button variant="outline" size="sm">
-              Log in
-            </Button>
-          </SignInButton>
-        </SignedOut>
-
-        <SignedOut>
-          <SignUpButton mode="modal">
-            <Button size={"sm"}>Sign Up</Button>
-          </SignUpButton>
-        </SignedOut>
+        <AuthBtn />
       </div>
     </nav>
   );

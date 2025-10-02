@@ -51,11 +51,12 @@ const clerkWebhook = httpAction(async (ctx, request) => {
 
         try {
 
+            // ✅ customer create for --> stripe 
             const customer = await stripe.customers.create({
                 email, name, metadata: { clerkId: id },
             });
 
-
+            // ✅ customer create & store in Convex
             await ctx.runMutation(api.controllers.user.createUser, {
                 email,
                 name,

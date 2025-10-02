@@ -1,6 +1,8 @@
-import { mutation } from "../_generated/server";
+import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
 
+
+// ✅✅✅✅✅✅✅✅✅✅✅✅ Mutation ✅✅✅✅✅✅✅✅✅✅✅✅
 
 export const createUser = mutation({
     args: {
@@ -32,7 +34,10 @@ export const createUser = mutation({
     },
 });
 
-export const getUserByClerkId = mutation({
+
+// 🔎🔎🔎🔎🔎🔎🔎🔎🔎🔎🔎🔎 Query 🔎🔎🔎🔎🔎🔎🔎🔎🔎🔎🔎🔎
+
+export const getUserByClerkId = query({
     args: {
         clerkId: v.string(),
     },
@@ -47,7 +52,7 @@ export const getUserByClerkId = mutation({
     },
 });
 
-export const getUserByStripeCustomerId = mutation({
+export const getUserByStripeCustomerId = query({
     args: {
         stripeCustomerId: v.string(),
     },
@@ -61,5 +66,55 @@ export const getUserByStripeCustomerId = mutation({
             .unique();
 
         return stripeUser;
+    },
+});
+
+export const getUserAccess = query({
+    args: {
+        userId: v.id("users"),
+        courseId: v.id("courses"),
+    },
+
+    handler: async (ctx, args) => {
+        const identity = await ctx.auth.getUserIdentity();
+        if (!identity) throw new Error("Not authenticated");
+
+
+        const user = await ctx.db.get(args.userId);
+        if (!user) throw new Error("User not found");
+
+
+        // Check for the subscription
+        if (user.currentSubscriptionId) {
+            const subscription = await ctx.db.get(user.currentSubscriptionId);
+            if (subscription && subscription.status === "active") {
+                return {
+                    hasAccess: true,
+                    accessType: "subscription"
+                };
+            }
+        }
+
+
+        // check for individual course purchase
+        const purchase = await ctx.db
+            .query("purchases")
+            .withIndex("by_userId_and_courseId", (q) =>
+                q.eq("userId", args.userId)
+                    .eq("courseId", args.courseId)
+            )
+            .unique();
+
+        if (purchase) {
+            return {
+                hasAccess: true,
+                accessType: "course",
+            };
+        }
+
+
+        return {
+            hasAccess: false
+        };
     },
 });

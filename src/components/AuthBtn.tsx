@@ -18,7 +18,7 @@ const AuthBtn = () => {
           <Button
             variant={"outline"}
             size={"sm"}
-            className="flex items-center gap-2 text-black"
+            className="flex items-center gap-2 text-muted-foreground"
           >
             <CreditCardIcon className="size-4" />
             <span className="hidden sm:inline">Billing</span>
@@ -34,7 +34,7 @@ const AuthBtn = () => {
           <Button
             variant="outline"
             size="sm"
-            className="hidden sm:flex items-center gap-2 text-black"
+            className="hidden sm:flex items-center gap-2 text-muted-foreground"
           >
             <LogOutIcon className="h-4 w-4" />
             <span className="hidden sm:inline">Log out</span>

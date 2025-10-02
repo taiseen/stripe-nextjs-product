@@ -35,32 +35,38 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    --grid-color: 0 0% 94.1%; /* #f0f0f0 in hsl */
+    --radial-color: 270 60% 85%; /* #d5c5ff approx in hsl */
   }
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 210 10% 10%; /* slate-800 */
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
+    --card: 210 20% 15%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 210 20% 15%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
+    --secondary: 210 20% 10%; /* slightly lighter */
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
+    --muted: 210 20% 20%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
+    --accent: 210 20% 20%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
+    --border: 210 20% 30%;
+    --input: 210 20% 30%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --grid-color: 0 0% 14.9%; /* matches your --border / --muted */
+    --radial-color: 250 40% 25%; /* muted purple, subtle in dark mode */
   }
 }
 

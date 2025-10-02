@@ -1,4 +1,5 @@
 import { GraduationCap, BookOpenIcon, ZapIcon } from "lucide-react";
+import ThemeBtn from "./ThemeBtn";
 import AuthBtn from "./AuthBtn";
 import Link from "next/link";
 
@@ -28,6 +29,8 @@ const Navbar = () => {
           <ZapIcon className="size-4" />
           <span className="hidden sm:inline">Pro</span>
         </Link>
+
+        <ThemeBtn />
 
         <AuthBtn />
       </div>

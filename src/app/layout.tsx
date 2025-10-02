@@ -1,4 +1,5 @@
 import { ConvexClientProvider } from "@/provider/ConvexClientProvider";
+import { ThemeProvider } from "next-themes";
 import { metaRootData } from "@/meta";
 import { LayoutType } from "@/types";
 import Navbar from "@/components/Navbar";
@@ -11,13 +12,15 @@ export default function RootLayout({ children }: Readonly<LayoutType>) {
   return (
     <html lang="en">
       <body>
-        <ConvexClientProvider>
-          <Bg />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ConvexClientProvider>
+            <Bg />
 
-          <Navbar />
+            <Navbar />
 
-          {children}
-        </ConvexClientProvider>
+            {children}
+          </ConvexClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

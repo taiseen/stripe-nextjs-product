@@ -4,6 +4,13 @@ export type LayoutType = {
     children: React.ReactNode
 }
 
+export type courseId = Id<"courses">;
+
 export type CourseDetailPageProps = {
-    params: { courseId: Id<"courses"> };
+    params: { courseId: courseId };
+}
+
+export type SuccessPageProps = {
+    params: { courseId: string };
+    searchParams: { session_id: string };
 }

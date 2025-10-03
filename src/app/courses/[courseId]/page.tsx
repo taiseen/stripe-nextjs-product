@@ -1,14 +1,13 @@
 "use client";
 
 import PurchaseButton from "@/components/common/PurchaseButton";
+import useCourseAccess from "@/hook/useCourseAccess";
+import Image from "next/image";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { api } from "../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CourseDetailPageProps } from "@/types";
 import { Button } from "@/components/ui/button";
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import Image from "next/image";
 import {
   FileTextIcon,
   PlayCircle,
@@ -20,26 +19,9 @@ import {
 const CourseDetailPage = ({ params }: CourseDetailPageProps) => {
   const { courseId } = params;
 
-  const { user, isLoaded: isUserLoaded } = useUser();
+  const { isLoading, courseData, userAccess } = useCourseAccess(courseId);
 
-  const { getUserByClerkId, getUserAccess } = api.controllers.user;
-  const { getCourseById } = api.controllers.courses;
-
-  const userData = useQuery(getUserByClerkId, { clerkId: user?.id ?? "" });
-
-  const courseData = useQuery(getCourseById, { courseId });
-
-  const userAccess = useQuery(
-    getUserAccess,
-    userData
-      ? {
-          userId: userData._id ?? "",
-          courseId,
-        }
-      : "skip"
-  ) || { hasAccess: false };
-
-  if (!isUserLoaded || !courseData) return <CourseDetailSkeleton />;
+  if (isLoading || !courseData) return <CourseDetailSkeleton />;
 
   return (
     <div className="container mx-auto py-8 px-4">

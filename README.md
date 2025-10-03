@@ -29,6 +29,7 @@ bunx convex dev
 - bunx --bun shadcn@latest add card
 - bunx --bun shadcn@latest add badge
 - bunx --bun shadcn@latest add skeleton
+- bunx --bun shadcn@latest add sonner
 - bun add stripe
 
 ### 📎 Reference
@@ -38,6 +39,7 @@ bunx convex dev
 - [`Convex Doc`](https://docs.convex.dev)
 - [`Clerk Dashboard`](https://dashboard.clerk.com) 🛡️
 - [`Clerk Doc`](https://clerk.com/docs)
+- [`Stripe Dashboard`](https://dashboard.stripe.com) 💰
 - [`Upstash Dashboard`](https://console.upstash.com)
 
 ### Learning Context:-

@@ -56,7 +56,7 @@ const PurchaseButton = ({ courseId }: { courseId: courseId }) => {
   }
 
   if (userAccess.hasAccess) {
-    return <Button variant={"outline"}>Enrolled</Button>;
+    return <Button variant={"ghost"} className="text-green-400">✅ Enrolled</Button>;
   }
 
   if (isLoading) {

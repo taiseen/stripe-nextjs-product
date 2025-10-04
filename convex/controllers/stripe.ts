@@ -45,6 +45,7 @@ export const createCheckoutSession = action({
         const url = process.env.NEXT_PUBLIC_APP_URL;
 
         const session = await stripe.checkout.sessions.create({
+            mode: "payment", // one-time payment
             customer: userData.stripeCustomerId,
             payment_method_types: ["card"],
             line_items: [
@@ -53,7 +54,6 @@ export const createCheckoutSession = action({
                     quantity: 1,
                 },
             ],
-            mode: "payment",
             success_url: `${url}/courses/${courseId}/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${url}/courses`,
 

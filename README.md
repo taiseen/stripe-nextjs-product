@@ -32,6 +32,14 @@ bunx convex dev
 - bunx --bun shadcn@latest add sonner
 - bun add stripe
 
+### Stripe Webhook (local testing)
+
+- run at cmd & this will generate a - `signing secret` for using this web-hook locally.
+  
+```js
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
+
 ### 📎 Reference
 
 - [`Shadcn Components`](https://ui.shadcn.com/docs/components) 🎨
@@ -46,3 +54,16 @@ bunx convex dev
 
 - manually data input at convex db
   - bunx convex import --table <TABLE_NAME> <FILE_NAME.json>
+
+### Stripe checkout webhook events:-
+
+- When using Stripe Checkout, a single purchase triggers multiple webhook events (like table).
+- As part of Stripe’s normal payment lifecycle, we typically only need to handle `checkout.session.completed` for fulfillment.
+
+| Event Type                  | What It Means                                                                     |
+|-----------------------------|-----------------------------------------------------------------------------------|
+|payment_intent.created       | A PaymentIntent was created (represents the intent to collect payment).           |
+|charge.succeeded             | The actual charge (money transfer) succeeded.                                     |
+|payment_intent.succeeded     | The full PaymentIntent succeeded (includes charge + any other steps).             |
+|`checkout.session.completed` | The customer successfully completed the Checkout session (this is the most important one for most apps).|
+|charge.updated               | A minor update to the charge object (e.g., metadata, fraud details, etc.).        |

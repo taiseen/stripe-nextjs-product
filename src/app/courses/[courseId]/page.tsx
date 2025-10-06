@@ -1,10 +1,10 @@
 "use client";
 
 import PurchaseButton from "@/components/common/PurchaseButton";
-import useCourseAccess from "@/hook/useCourseAccess";
 import Image from "next/image";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useUserAccess, useCourse, useUserDocument } from "@/hook/useDataQuery";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CourseDetailPageProps } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,9 @@ import {
 const CourseDetailPage = ({ params }: CourseDetailPageProps) => {
   const { courseId } = params;
 
-  const { isLoading, courseData, userAccess } = useCourseAccess(courseId);
+  const { userData } = useUserDocument();
+  const { courseData, isLoading } = useCourse(courseId);
+  const { userAccess } = useUserAccess(userData?._id, courseId);
 
   if (isLoading || !courseData) return <CourseDetailSkeleton />;
 
@@ -65,6 +67,7 @@ const CourseDetailPage = ({ params }: CourseDetailPageProps) => {
                   <FileTextIcon className="size-5 text-gray-400" />
                   <span>Introduction to Advanced Patterns</span>
                 </li>
+
                 <li className="flex items-center space-x-2">
                   <FileText className="w-5 h-5 text-gray-400" />
                   <span>Hooks and Custom Hooks</span>
@@ -112,11 +115,13 @@ function CourseDetailSkeleton() {
         <CardHeader>
           <Skeleton className="w-full h-[600px] rounded-md" />
         </CardHeader>
+
         <CardContent>
           <Skeleton className="h-10 w-3/4 mb-4" />
           <Skeleton className="h-4 w-full mb-2" />
           <Skeleton className="h-4 w-full mb-2" />
           <Skeleton className="h-4 w-2/3 mb-6" />
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <Skeleton className="h-10 w-full" />
             <Skeleton className="h-10 w-full" />

@@ -1,6 +1,6 @@
 "use client";
 
-import useCourseAccess from "@/hook/useCourseAccess";
+import { useUserAccess, useUserDocument } from "@/hook/useDataQuery";
 import { api } from "../../../convex/_generated/api";
 import { Loader2Icon } from "lucide-react";
 import { useAction } from "convex/react";
@@ -10,7 +10,9 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const PurchaseButton = ({ courseId }: { courseId: courseId }) => {
-  const { user, userAccess } = useCourseAccess(courseId);
+  const { userData } = useUserDocument();
+
+  const { userAccess } = useUserAccess(userData?._id, courseId);
 
   const { createCheckoutSession } = api.controllers.stripe;
 
@@ -20,7 +22,7 @@ const PurchaseButton = ({ courseId }: { courseId: courseId }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePurchase = async () => {
-    if (!user)
+    if (!userData)
       return toast.error("Please log in to purchase", { id: "login-error" });
 
     setIsLoading(true);
@@ -56,7 +58,11 @@ const PurchaseButton = ({ courseId }: { courseId: courseId }) => {
   }
 
   if (userAccess.hasAccess) {
-    return <Button variant={"ghost"} className="text-green-400">✅ Enrolled</Button>;
+    return (
+      <Button variant={"ghost"} className="text-green-400">
+        ✅ Enrolled
+      </Button>
+    );
   }
 
   if (isLoading) {

@@ -6,6 +6,9 @@ export type LayoutType = {
 
 export type courseId = Id<"courses">;
 
+export type userId = Id<"users">;
+
+
 export type CourseDetailPageProps = {
     params: { courseId: courseId };
 }

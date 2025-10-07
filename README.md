@@ -53,6 +53,9 @@ CLERK_JWT_ISSUER_DOMAIN = *******
 STRIPE_SECRET_KEY = *******
 STRIPE_WEBHOOK_SECRET = *******
 
+STRIPE_MONTHLY_PRICE_ID = *******
+STRIPE_YEARLY_PRICE_ID = *******
+
 UPSTASH_REDIS_REST_URL = *******
 UPSTASH_REDIS_REST_TOKEN = *******
 ```
@@ -71,6 +74,9 @@ UPSTASH_REDIS_REST_TOKEN = *******
 
 - manually data input at convex db
   - bunx convex import --table <TABLE_NAME> <FILE_NAME.json>
+- `One time` product purchase system
+- `Recurring based subscription` product purchase system
+- By `webhook` event listener request - update database record
 
 ### 🪝 Stripe checkout webhook events:-
 

@@ -53,3 +53,16 @@ export const useUserAccess = (userId: userId | undefined, courseId: courseId) =>
         isLoading: shouldFetch && userAccess === undefined,
     };
 };
+
+
+
+export const useUserSubscription = (userId: userId | undefined) => {
+    const { getUserSubscription } = api.controllers.subscriptions;
+
+    const userSubscription = useQuery(
+        getUserSubscription,
+        userId ? { userId } : "skip"
+    );
+
+    return { userSubscription, };
+}

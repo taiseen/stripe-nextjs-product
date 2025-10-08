@@ -49,6 +49,7 @@ const ProPage = () => {
     try {
       const result = await createProPlanCheckoutPage({ planId });
       if (result.checkoutUrl) {
+        // go to checkout url...
         window.location.href = result.checkoutUrl;
       }
     } catch (error: any) {

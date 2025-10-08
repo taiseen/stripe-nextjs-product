@@ -91,6 +91,8 @@ UPSTASH_REDIS_REST_TOKEN = *******
 |`checkout.session.completed` | The customer successfully completed the Checkout session (this is the most important one for most apps).|
 |charge.updated               | A minor update to the charge object (e.g., metadata, fraud details, etc.).        |
 
+### Single Product Buy Webhook Log:-
+
 [WEB_HOOK][hookLink]
 
 [hookLink]: http://localhost:3000/api/webhooks/stripe
@@ -106,4 +108,34 @@ UPSTASH_REDIS_REST_TOKEN = *******
 2025-10-06 05:22:31  <--  [200] POST [WEB_HOOK] [evt_m2Y]
 2025-10-06 05:22:31   --> charge.updated [evt_UnD]
 2025-10-06 05:22:31  <--  [200] POST [WEB_HOOK] [evt_UnD]
+```
+
+### Subscription Purchase Webhook Log:-
+
+```js
+2025-10-08 19:37:20   --> charge.succeeded [evt_dlv]
+2025-10-08 19:37:20   --> payment_method.attached [evt_Sn7]
+2025-10-08 19:37:20   --> checkout.session.completed [evt_Xre]
+2025-10-08 19:37:20   --> customer.updated [evt_MnF]
+2025-10-08 19:37:21   --> customer.subscription.created [evt_naa]
+2025-10-08 19:37:21   --> payment_intent.succeeded [evt_hpN]
+2025-10-08 19:37:21   --> payment_intent.created [evt_ayu]
+2025-10-08 19:37:21   --> invoice.created [evt_Kw5]
+2025-10-08 19:37:21   --> invoice.finalized [evt_27R]
+2025-10-08 19:37:21   --> invoice.paid [evt_18t]
+2025-10-08 19:37:21   --> invoice.payment_succeeded [evt_urV]
+2025-10-08 19:37:21  <--  [200] POST [WEB_HOOK] [evt_Sn7]
+2025-10-08 19:37:21  <--  [200] POST [WEB_HOOK] [evt_Kw5]
+2025-10-08 19:37:21  <--  [200] POST [WEB_HOOK] [evt_hpN]
+2025-10-08 19:37:21  <--  [200] POST [WEB_HOOK] [evt_ayu]
+2025-10-08 19:37:21  <--  [200] POST [WEB_HOOK] [evt_dlv]
+2025-10-08 19:37:21  <--  [200] POST [WEB_HOOK] [evt_Xre]
+2025-10-08 19:37:21  <--  [200] POST [WEB_HOOK] [evt_MnF]
+2025-10-08 19:37:22  <--  [200] POST [WEB_HOOK] [evt_27R]
+2025-10-08 19:37:22  <--  [200] POST [WEB_HOOK] [evt_18t]
+2025-10-08 19:37:22  <--  [200] POST [WEB_HOOK] [evt_urV]
+2025-10-08 19:37:22   --> invoice_payment.paid [evt_95C]
+2025-10-08 19:37:22  <--  [200] POST [WEB_HOOK] [evt_95C]
+2025-10-08 19:37:24  <--  [200] POST [WEB_HOOK] [evt_naa]
+
 ```

@@ -47,10 +47,11 @@ const ProPage = () => {
     setLoadingPlan(planId);
 
     try {
-      const result = await createProPlanCheckoutPage({ planId });
-      if (result.checkoutUrl) {
-        // go to checkout url...
-        window.location.href = result.checkoutUrl;
+      const { checkoutUrl } = await createProPlanCheckoutPage({ planId });
+
+      if (checkoutUrl) {
+        // Go to stripe checkout page...
+        window.location.href = checkoutUrl;
       }
     } catch (error: any) {
       if (error.message.includes("Rate limit exceeded")) {

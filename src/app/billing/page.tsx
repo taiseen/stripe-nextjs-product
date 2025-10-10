@@ -32,12 +32,16 @@ const BillingPage = () => {
     setIsLoading(true);
 
     try {
+      // 🟩🟩🟩 create a folder & file name according to this url...
       const endPoint = "/api/create-billing-portal";
       const response = await fetch(endPoint, { method: "POST" });
-      const { url } = await response.json();
+      const { billingUrl } = await response.json();
+       
+      console.log({ billingUrl });
 
-      if (url) {
-        window.location.href = url;
+      if (billingUrl) {
+        // Go to stripe billing page...
+        window.location.href = billingUrl;
       } else {
         throw new Error("Failed to create billing portal");
       }

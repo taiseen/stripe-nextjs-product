@@ -1,6 +1,6 @@
-import { Id } from "../../../../../convex/_generated/dataModel";
 import { api } from "../../../../../convex/_generated/api";
 import { ConvexHttpClient } from "convex/browser";
+import { courseId } from "@/types";
 import stripe from "@/lib/stripe";
 import Stripe from "stripe";
 
@@ -22,6 +22,8 @@ export function verifyStripeWebhookSignature(
 
 export async function handleStripeWebhookEventRoute(event: Stripe.Event) {
 
+    console.log('🟧🟧🟧 event type:- ', event.type);
+
     try {
         // Handle the event
         switch (event.type) {
@@ -36,13 +38,24 @@ export async function handleStripeWebhookEventRoute(event: Stripe.Event) {
                 await handleSubscription(event.data.object as Stripe.Subscription, event.type);
                 break;
 
+            // for subscription deleted
+            // remove user access completely & delete from database
+            // at future time of this subscription deleted event auto fire and run this block of code
+            // OR if admin manually click at stripe dashboard of the subscription product cancel button
+            // then also fire this block of code...
+            case "customer.subscription.deleted":
+                await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
+                break;
+
             default:
-                console.warn(`🔴 Unhandled event type ${event.type}`);
+                console.warn(`🔴🔴🔴 Unhandled event type:- ${event.type}`);
                 break;
         }
+
     } catch (error) {
-        const message = "🔴 Error processing at webhook:- " + error
+        const message = "🔴🔴🔴 Error processing at webhook:- " + error
         console.error(message);
+
         return new Response(message, { status: 400 });
     }
 
@@ -69,7 +82,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
 
     await convex.mutation(purchases.recordPurchase, {
         userId: userData._id,
-        courseId: courseId as Id<"courses">,
+        courseId: courseId as courseId,
         amount: session.amount_total as number,
         stripePurchaseId: session.id,
     });
@@ -100,8 +113,15 @@ async function handleSubscription(subscription: Stripe.Subscription, eventType: 
 
     // console.log('🟩 webHook - handle subscription:-');
     // console.log(JSON.stringify(subscription, undefined, 2));
+    // console.log(subscription);
 
     try {
+
+        // 🔥 Determine if subscription is scheduled for cancellation...
+        const isCanceledAtPeriodEnd =
+            subscription.cancel_at_period_end === true ||
+            (subscription.cancel_at !== null &&
+                subscription.cancel_at === subscription.current_period_end);
 
         const subscriptionInfoStoreInDB = {
             userId: userData._id,
@@ -110,8 +130,10 @@ async function handleSubscription(subscription: Stripe.Subscription, eventType: 
             planType: subscription.items.data[0].plan.interval as "month" | "year",
             currentPeriodStart: subscription.current_period_start,
             currentPeriodEnd: subscription.current_period_end,
-            cancelAtPeriodEnd: subscription.cancel_at_period_end,
+            cancelAtPeriodEnd: isCanceledAtPeriodEnd,
         }
+
+        // console.log({ subscriptionInfoStoreInDB });
 
         await convex.mutation(createOrUpdateSubscription, subscriptionInfoStoreInDB);
 
@@ -127,4 +149,15 @@ async function handleSubscription(subscription: Stripe.Subscription, eventType: 
 
 
 
+async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
+    const { removeSubscription } = api.controllers.subscriptions;
+
+    try {
+        await convex.mutation(removeSubscription, { stripeSubscriptionId: subscription.id });
+
+        console.log(`Successfully deleted subscription ${subscription.id}`);
+    } catch (error) {
+        console.error(`Error deleting subscription ${subscription.id}:`, error);
+    }
+}

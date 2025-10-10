@@ -2,7 +2,9 @@
 
 import { useUserDocument, useUserSubscription } from "@/hook/useDataQuery";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import {
   CardDescription,
   CardContent,
@@ -12,6 +14,7 @@ import {
   Card,
 } from "@/components/ui/card";
 import {
+  CheckCircleIcon,
   AlertTriangle,
   CheckCircle2,
   CreditCard,
@@ -19,12 +22,15 @@ import {
   Link,
   Zap,
 } from "lucide-react";
-import { toast } from "sonner";
 
 const BillingPage = () => {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { userData } = useUserDocument();
+
+  if (!userData) router.push("/"); // go to root page
 
   const { userSubscription } = useUserSubscription(userData?._id);
 
@@ -36,7 +42,7 @@ const BillingPage = () => {
       const endPoint = "/api/create-billing-portal";
       const response = await fetch(endPoint, { method: "POST" });
       const { billingUrl } = await response.json();
-       
+
       console.log({ billingUrl });
 
       if (billingUrl) {
@@ -105,8 +111,9 @@ const BillingPage = () => {
 
                 <div>
                   <p className="text-sm font-medium text-gray-500">Status</p>
-                  <p className="text-lg font-semibold text-muted-foreground capitalize">
-                    {userSubscription.status}
+                  <p className="text-lg font-semibold text-muted-foreground capitalize flex item-center gap-2">
+                    {userSubscription.status}{" "}
+                    <CheckCircleIcon className="h-4 w-4 text-green-500 mt-1.5" />
                   </p>
                 </div>
 
@@ -122,11 +129,12 @@ const BillingPage = () => {
               </div>
 
               {userSubscription.cancelAtPeriodEnd && (
-                <div className="flex items-center bg-yellow-50 p-4 rounded-lg text-yellow-700">
+                <div className="flex items-center bg-red-100 p-4 rounded-lg text-red-700">
                   <AlertTriangle className="h-5 w-5 mr-3 flex-shrink-0" />
                   <p className="text-sm">
                     Your subscription will be cancelled at the end of the
-                    current billing period.
+                    current billing period at:-{" "}
+                    {formatDate(userSubscription.currentPeriodEnd)}
                   </p>
                 </div>
               )}

@@ -139,3 +139,18 @@ UPSTASH_REDIS_REST_TOKEN = *******
 2025-10-08 19:37:24  <--  [200] POST [WEB_HOOK] [evt_naa]
 
 ```
+
+### Subscription Billing Manage (Deleted) Webhook Log:-
+
+```js
+2025-10-10 18:00:57   --> billing_portal.session.created [evt_SWy]
+2025-10-10 18:00:57  <--  [200] POST [WEB_HOOK] [evt_SWy]
+
+2025-10-10 18:01:38   --> customer.subscription.updated [evt_8ny]
+2025-10-10 18:01:41  <--  [200] POST [WEB_HOOK] [evt_8ny]
+
+2025-10-10 18:42:56   --> customer.subscription.deleted [evt_b6v] ⬅️⬅️⬅️ auto run || manually click form dashboard
+2025-10-10 18:42:57  <--  [200] POST [WEB_HOOK] [evt_b6v]
+```
+
+![image](./src/lib/deleted-event.png)
